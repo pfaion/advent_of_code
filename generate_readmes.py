@@ -22,35 +22,60 @@ for year in years:
     for day in days:
 
         print(f"Generating readme for {day.relative_to(here)}...")
+
         content = [f"# Day {int(day.name[3:])}"]
 
         for part in (1, 2):
+            part_data = {}
 
             html_file = day / f"part{part}.html"
             if not html_file.exists():
                 continue
             html = html_file.read_text()
             content += [
-                "## Part 1",
+                f"## Part {part}",
+                "",
                 "<details><summary>Exercise Text (click to expand)</summary>",
                 html,
                 "</details>",
+                "",
             ]
 
-            variants = sorted(day.glob("part1*.py"))
-            for i, variant in enumerate(variants):
-                code = variant.read_text()
-                result, duration = run_timed(variant)
+            variants_data = []
+            source_files = sorted(day.glob("part1*.py"))
+            for i, path in enumerate(source_files):
+                code = path.read_text()
+                result, runtime = run_timed(path)
+                variants_data.append((i, code, runtime, result))
+
+            if len(variants_data) == 1:
+                _, code, runtime, result = variants_data[0]
                 content += [
-                    f"### Variant {i + 1}",
                     "```python",
                     code,
                     "```",
-                    f"Runtime: {round(duration, 3)}s, Output:",
+                    f"Runtime: {round(runtime, 3)}s, Output:",
                     "```",
                     result,
                     "```",
                 ]
 
+            elif len(variants_data) > 1:
+                content += ["### Overview", "| Variant | Runtime |", "| --- | --- |"]
+                for i, code, runtime, result in variants_data:
+                    content += [f"|{i+1}|{round(runtime, 3)}s|"]
+                content += [""]
+                for i, code, runtime, result in variants_data:
+                    content += [
+                        f"### Variant {i + 1}",
+                        "```python",
+                        code,
+                        "```",
+                        f"Runtime: {round(runtime, 3)}s, Output:",
+                        "```",
+                        result,
+                        "```",
+                    ]
+
         readme = day / "README.md"
-        readme.write_text("\n\n".join(content))
+        readme.write_text("\n".join(content))
