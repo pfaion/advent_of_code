@@ -84,7 +84,7 @@ data = (here / "input.txt").read_text()
 print(get_floor(data))
 
 ```
-Runtime: 0.03s, Output:
+Runtime: 0.033s, Output:
 ```
 232
 ```
@@ -143,7 +143,7 @@ data = (here / "input.txt").read_text()
 print(get_floor(data))
 
 ```
-Runtime: 0.04s, Output:
+Runtime: 0.027s, Output:
 ```
 232
 ```
