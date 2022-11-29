@@ -86,7 +86,7 @@ data = list(map(int, (here / "input.txt").read_text().splitlines()))
 print(prod(find_summands(data, 2020)))
 
 ```
-Runtime: 0.031s, Output:
+Runtime: 0.035s, Output:
 ```
 960075
 ```

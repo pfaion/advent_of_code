@@ -105,25 +105,25 @@ Runtime: 0.037s, Output:
 </details>
 
 ```python
-from itertools import starmap
+from math import prod
 from pathlib import Path
 
 here = Path(__file__).parent
-data: list[tuple[int, int, int]] = [
-    map(int, line.split("x")) for line in (here / "input.txt").read_text().splitlines()
+data = (here / "input.txt").read_text().splitlines()
+dimensions: list[tuple[int, int, int]] = [
+    tuple(int(d) for d in line.split("x")) for line in data
 ]
 
 
-def required_paper(l: int, w: int, h: int) -> int:
-    sides = (l * w, w * h, h * l)
-    paper = 2 * sum(sides) + min(sides)
-    return paper
+def required_ribbon(sides: tuple[int, int, int]) -> int:
+    smaller_sides = sorted(sides)[0:2]
+    return 2 * sum(smaller_sides) + prod(sides)
 
 
-print(sum(starmap(required_paper, data)))
+print(sum(map(required_ribbon, dimensions)))
 
 ```
 Runtime: 0.028s, Output:
 ```
-1606483
+3842356
 ```

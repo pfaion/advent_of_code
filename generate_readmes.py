@@ -42,7 +42,7 @@ for year in years:
             ]
 
             variants_data = []
-            source_files = sorted(day.glob("part1*.py"))
+            source_files = sorted(day.glob(f"part{part}*.py"))
             for i, path in enumerate(source_files):
                 code = path.read_text()
                 result, runtime = run_timed(path)
