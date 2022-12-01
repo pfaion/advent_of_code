@@ -84,7 +84,7 @@ data = (here / "input.txt").read_text()
 print(get_floor(data))
 
 ```
-Runtime: 0.034s, Output:
+Runtime: 0.031s, Output:
 ```
 232
 ```
@@ -139,7 +139,7 @@ data = (here / "input.txt").read_text()
 print(first_basement_enter(data))
 
 ```
-Runtime: 0.026s, Output:
+Runtime: 0.028s, Output:
 ```
 1783
 ```

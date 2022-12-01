@@ -37,7 +37,8 @@
     multiply those two numbers together.
   </p>
   <p>For example, suppose your expense report contained the following:</p>
-  <pre><code>
+  
+<pre><code>
     1721
     979
     366
@@ -86,7 +87,7 @@ data = list(map(int, (here / "input.txt").read_text().splitlines()))
 print(prod(find_summands(data, 2020)))
 
 ```
-Runtime: 0.035s, Output:
+Runtime: 0.033s, Output:
 ```
 960075
 ```

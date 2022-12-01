@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import argparse
+import re
 import subprocess
 import time
 from pathlib import Path
-from typing import Optional
 
 here = Path(__file__).parent
 
@@ -49,6 +49,11 @@ for year in years:
             if not html_file.exists():
                 continue
             html = html_file.read_text()
+            # Github flavored markdown will stop interpreting HTML on a blank
+            # line, EXCEPT when the HTML started with a <pre> tag. To make sure
+            # we correctly interpret blank lines in <pre> tags, we need to break
+            # it off from previous HTML by inserting newlines.
+            html = re.sub(r"<pre>", "\n<pre>", html)
             content += [
                 f"## Part {part}",
                 "",
