@@ -1,7 +1,9 @@
 #!/usr/bin/env python
+import argparse
 import subprocess
 import time
 from pathlib import Path
+from typing import Optional
 
 here = Path(__file__).parent
 
@@ -15,10 +17,25 @@ def run_timed(path: Path) -> tuple[str, float]:
     return result, (t1 - t0)
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument("year", nargs="?")
+parser.add_argument("day", nargs="?")
+args = parser.parse_args()
+print(args)
+
+
 years = sorted(item for item in here.glob("20*") if item.is_dir())
+if args.year is not None:
+    if not any(args.year == year.name for year in years):
+        raise ValueError(f"A folder for year '{args.year}' does not exist!")
+    years = [year for year in years if year.name == args.year]
 for year in years:
 
     days = sorted(item for item in year.glob("day*") if item.is_dir())
+    if args.day is not None:
+        if not any(int(args.day) == int(day.name[3:]) for day in days):
+            raise ValueError(f"A folder for day '{args.day}' does not exist!")
+        days = [day for day in days if int(day.name[3:]) == int(args.day)]
     for day in days:
 
         print(f"Generating readme for {day.relative_to(here)}...")
