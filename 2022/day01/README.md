@@ -44,7 +44,8 @@
     For example, suppose the Elves finish writing their items' Calories and end
     up with the following list:
   </p>
-  <pre><code>1000
+  <pre><code>
+    1000
     2000
     3000
     
@@ -58,7 +59,7 @@
     9000
     
     10000
-    </code></pre>
+  </code></pre>
   <p>This list represents the Calories of the food carried by five Elves:</p>
   <ul>
     <li>
@@ -118,7 +119,7 @@ def max_elf_calories(raw_input: str) -> int:
 print(max_elf_calories(raw_input))
 
 ```
-Runtime: 0.067s, Output:
+Runtime: 0.026s, Output:
 ```
 74198
 ```
@@ -174,7 +175,7 @@ def max_three_elf_calories(raw_input: str) -> list[int]:
 print(sum(max_three_elf_calories(raw_input)))
 
 ```
-Runtime: 0.052s, Output:
+Runtime: 0.031s, Output:
 ```
 209914
 ```
