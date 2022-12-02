@@ -21,8 +21,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument("year", nargs="?")
 parser.add_argument("day", nargs="?")
 args = parser.parse_args()
-print(args)
-
 
 years = sorted(item for item in here.glob("20*") if item.is_dir())
 if args.year is not None:
