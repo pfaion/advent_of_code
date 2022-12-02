@@ -120,7 +120,7 @@ def max_elf_calories(raw_input: str) -> int:
 print(max_elf_calories(raw_input))
 
 ```
-Runtime: 0.029s, Output:
+Runtime: 0.043s, Size: 354, Output:
 ```
 74198
 ```
@@ -176,7 +176,7 @@ def max_three_elf_calories(raw_input: str) -> list[int]:
 print(sum(max_three_elf_calories(raw_input)))
 
 ```
-Runtime: 0.03s, Output:
+Runtime: 0.041s, Size: 411, Output:
 ```
 209914
 ```

@@ -63,7 +63,7 @@ def required_paper(l: int, w: int, h: int) -> int:
 print(sum(starmap(required_paper, data)))
 
 ```
-Runtime: 0.032s, Output:
+Runtime: 0.047s, Size: 400, Output:
 ```
 1606483
 ```
@@ -123,7 +123,7 @@ def required_ribbon(sides: tuple[int, int, int]) -> int:
 print(sum(map(required_ribbon, dimensions)))
 
 ```
-Runtime: 0.031s, Output:
+Runtime: 0.041s, Size: 428, Output:
 ```
 3842356
 ```

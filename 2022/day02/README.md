@@ -86,10 +86,11 @@
 </details>
 
 ### Overview
-| Variant | Runtime |
-| --- | --- |
-|1|0.042s|
-|2|0.032s|
+| Variant | Runtime | Size |
+| --- | --- | --- |
+|1|0.04s|607|
+|2|0.037s|442|
+|3|0.026s|250|
 
 ### Variant 1
 ```python
@@ -122,7 +123,7 @@ def score(opponent_move: str, own_move: str) -> int:
 print(sum(starmap(score, data)))
 
 ```
-Runtime: 0.042s, Output:
+Runtime: 0.04s, Size: 607, Output:
 ```
 12772
 ```
@@ -146,7 +147,27 @@ def score(opponent_move: str, own_move: str) -> int:
 print(sum(starmap(score, data)))
 
 ```
-Runtime: 0.032s, Output:
+Runtime: 0.037s, Size: 442, Output:
+```
+12772
+```
+### Variant 3
+```python
+from pathlib import Path
+
+data = (Path(__file__).parent / "input.txt").read_text().splitlines()
+
+print(
+    sum(
+        1
+        + (b := ord((p := l.split(" "))[1]) - 88)
+        + 3 * ((b + 4 - (ord(p[0]) - 65)) % 3)
+        for l in data
+    )
+)
+
+```
+Runtime: 0.026s, Size: 250, Output:
 ```
 12772
 ```
@@ -229,7 +250,7 @@ def score(opponent_move: str, outcome: str) -> int:
 print(sum(starmap(score, data)))
 
 ```
-Runtime: 0.028s, Output:
+Runtime: 0.028s, Size: 672, Output:
 ```
 11618
 ```

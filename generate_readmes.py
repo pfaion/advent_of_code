@@ -68,34 +68,28 @@ for year in years:
                 result, runtime = run_timed(path)
                 variants_data.append((i, code, runtime, result))
 
-            if len(variants_data) == 1:
-                _, code, runtime, result = variants_data[0]
+            if len(variants_data) > 1:
+                content += [
+                    "### Overview",
+                    "| Variant | Runtime | Size |",
+                    "| --- | --- | --- |",
+                ]
+                for i, code, runtime, result in variants_data:
+                    content += [f"|{i+1}|{round(runtime, 3)}s|{len(code)}|"]
+                content += [""]
+
+            for i, code, runtime, result in variants_data:
+                if len(variants_data) > 1:
+                    content += [f"### Variant {i + 1}"]
                 content += [
                     "```python",
                     code,
                     "```",
-                    f"Runtime: {round(runtime, 3)}s, Output:",
+                    f"Runtime: {round(runtime, 3)}s, Size: {len(code)}, Output:",
                     "```",
                     result,
                     "```",
                 ]
-
-            elif len(variants_data) > 1:
-                content += ["### Overview", "| Variant | Runtime |", "| --- | --- |"]
-                for i, code, runtime, result in variants_data:
-                    content += [f"|{i+1}|{round(runtime, 3)}s|"]
-                content += [""]
-                for i, code, runtime, result in variants_data:
-                    content += [
-                        f"### Variant {i + 1}",
-                        "```python",
-                        code,
-                        "```",
-                        f"Runtime: {round(runtime, 3)}s, Output:",
-                        "```",
-                        result,
-                        "```",
-                    ]
 
         readme = day / "README.md"
         readme.write_text("\n".join(content))
