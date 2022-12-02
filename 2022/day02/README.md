@@ -85,6 +85,13 @@
 
 </details>
 
+### Overview
+| Variant | Runtime |
+| --- | --- |
+|1|0.042s|
+|2|0.032s|
+
+### Variant 1
 ```python
 from itertools import starmap
 from pathlib import Path
@@ -115,7 +122,31 @@ def score(opponent_move: str, own_move: str) -> int:
 print(sum(starmap(score, data)))
 
 ```
-Runtime: 0.028s, Output:
+Runtime: 0.042s, Output:
+```
+12772
+```
+### Variant 2
+```python
+from itertools import starmap
+from pathlib import Path
+
+here = Path(__file__).parent
+
+data = [line.split(" ") for line in (here / "input.txt").read_text().splitlines()]
+
+
+def score(opponent_move: str, own_move: str) -> int:
+    # computing the result based on the ascii values of the characters
+    a = ord(opponent_move) - ord("A")
+    b = ord(own_move) - ord("X")
+    return ((b - a + 4) % 3) * 3 + b + 1
+
+
+print(sum(starmap(score, data)))
+
+```
+Runtime: 0.032s, Output:
 ```
 12772
 ```
@@ -198,7 +229,7 @@ def score(opponent_move: str, outcome: str) -> int:
 print(sum(starmap(score, data)))
 
 ```
-Runtime: 0.037s, Output:
+Runtime: 0.028s, Output:
 ```
 11618
 ```
