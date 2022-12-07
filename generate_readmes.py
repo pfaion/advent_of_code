@@ -38,28 +38,16 @@ for year in years:
 
         print(f"Generating readme for {day.relative_to(here)}...")
 
-        content = [f"# Day {int(day.name[3:])}"]
+        content = [
+            f"# Day {int(day.name[3:])}",
+            "",
+            f"[Exercise Text](https://adventofcode.com/{year.name}/day/{int(day.name[3:])})",
+            "",
+        ]
 
         for part in (1, 2):
             part_data = {}
-
-            html_file = day / f"part{part}.html"
-            if not html_file.exists():
-                continue
-            html = html_file.read_text()
-            # Github flavored markdown will stop interpreting HTML on a blank
-            # line, EXCEPT when the HTML started with a <pre> tag. To make sure
-            # we correctly interpret blank lines in <pre> tags, we need to break
-            # it off from previous HTML by inserting newlines.
-            html = re.sub(r"<pre>", "\n<pre>", html)
-            content += [
-                f"## Part {part}",
-                "",
-                "<details><summary>Exercise Text (click to expand)</summary>",
-                html,
-                "</details>",
-                "",
-            ]
+            content += [f"## Part {part}"]
 
             variants_data = []
             source_files = sorted(day.glob(f"part{part}*.py"))
