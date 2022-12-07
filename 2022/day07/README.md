@@ -3,6 +3,13 @@
 [Exercise Text](https://adventofcode.com/2022/day/7)
 
 ## Part 1
+### Overview
+| Variant | Runtime | Size |
+| --- | --- | --- |
+|1|0.039s|907|
+|2|0.04s|554|
+
+### Variant 1
 ```python
 from pathlib import Path
 
@@ -48,11 +55,44 @@ get_directory_size(tree)
 print(target_sum)
 
 ```
-Runtime: 0.027s, Size: 907, Output:
+Runtime: 0.039s, Size: 907, Output:
+```
+1423358
+```
+### Variant 2
+```python
+from collections import Counter
+from pathlib import Path
+
+data = Path(__file__).with_name("input.txt").read_text().splitlines()
+
+dir_sizes: dict[str, int] = Counter()
+trace = [""]
+for line in data[1:]:
+    if line == "$ cd ..":
+        trace.pop()
+    elif line.startswith("$ cd"):
+        trace.append(line[5:])
+    elif line[0].isnumeric():
+        parts = line.split(" ")
+        for dir in Path("/".join(trace + [parts[1]])).parents:
+            dir_sizes[str(dir)] += int(parts[0])
+
+print(sum(size for size in dir_sizes.values() if size <= 100000))
+
+```
+Runtime: 0.04s, Size: 554, Output:
 ```
 1423358
 ```
 ## Part 2
+### Overview
+| Variant | Runtime | Size |
+| --- | --- | --- |
+|1|0.027s|1121|
+|2|0.035s|671|
+
+### Variant 1
 ```python
 from pathlib import Path
 
@@ -103,7 +143,35 @@ for dir_size in sorted(all_directory_sizes):
         break
 
 ```
-Runtime: 0.032s, Size: 1121, Output:
+Runtime: 0.027s, Size: 1121, Output:
+```
+545729
+```
+### Variant 2
+```python
+from collections import Counter
+from pathlib import Path
+
+data = Path(__file__).with_name("input.txt").read_text().splitlines()
+
+dir_sizes: dict[str, int] = Counter()
+trace = [""]
+for line in data[1:]:
+    if line == "$ cd ..":
+        trace.pop()
+    elif line.startswith("$ cd"):
+        trace.append(line[5:])
+    elif line[0].isnumeric():
+        parts = line.split(" ")
+        for dir in Path("/".join(trace + [parts[1]])).parents:
+            dir_sizes[str(dir)] += int(parts[0])
+
+current_free_space = 70000000 - dir_sizes["/"]
+min_deletion_size = 30000000 - current_free_space
+print(next(size for size in sorted(dir_sizes.values()) if size >= min_deletion_size))
+
+```
+Runtime: 0.035s, Size: 671, Output:
 ```
 545729
 ```
