@@ -1,3 +1,3 @@
 # Advent of Code
 
-[adventofcode.com](adventofcode.com)
+[adventofcode.com](https://adventofcode.com/)
