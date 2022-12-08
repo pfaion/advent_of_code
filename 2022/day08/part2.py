@@ -3,11 +3,9 @@ from pathlib import Path
 
 data = Path(__file__).with_name("input.txt").read_text().splitlines()
 
-n_rows = len(data)
-n_cols = len(data[0])
-
 # 1D data makes slicing easier
 data1d = "".join(data)
+n_cols = len(data[0])
 
 
 def idx_to_rowcol(idx: int) -> tuple[int, int]:
