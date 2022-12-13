@@ -1,4 +1,5 @@
 import functools
+import json
 import re
 from math import prod
 from pathlib import Path
@@ -34,7 +35,7 @@ def compare(left, right) -> int:
         return compare(left, [right])
 
 
-packets = [eval(line) for line in re.split(r"\n+", data_raw)]
+packets = [json.loads(line) for line in re.split(r"\n+", data_raw)]
 dividers = ([[2]], [[6]])
 packets.extend(dividers)
 sorted_packets = sorted(packets, key=functools.cmp_to_key(compare), reverse=True)

@@ -4,6 +4,7 @@
 
 ## Part 1
 ```python
+import json
 from pathlib import Path
 
 data_raw = Path(__file__).with_name("input.txt").read_text()
@@ -41,18 +42,19 @@ print(
     sum(
         i + 1
         for i, batch in enumerate(data_raw.split("\n\n"))
-        if compare(*map(eval, batch.splitlines())) == 1
+        if compare(*map(json.loads, batch.splitlines())) == 1
     )
 )
 
 ```
-Runtime: 0.066s, Size: 1071, Output:
+Runtime: 0.048s, Size: 1089, Output:
 ```
 6235
 ```
 ## Part 2
 ```python
 import functools
+import json
 import re
 from math import prod
 from pathlib import Path
@@ -88,14 +90,14 @@ def compare(left, right) -> int:
         return compare(left, [right])
 
 
-packets = [eval(line) for line in re.split(r"\n+", data_raw)]
+packets = [json.loads(line) for line in re.split(r"\n+", data_raw)]
 dividers = ([[2]], [[6]])
 packets.extend(dividers)
 sorted_packets = sorted(packets, key=functools.cmp_to_key(compare), reverse=True)
 print(prod(1 + sorted_packets.index(div) for div in dividers))
 
 ```
-Runtime: 0.071s, Size: 1226, Output:
+Runtime: 0.06s, Size: 1244, Output:
 ```
 22866
 ```

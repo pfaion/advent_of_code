@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 data_raw = Path(__file__).with_name("input.txt").read_text()
@@ -35,6 +36,6 @@ print(
     sum(
         i + 1
         for i, batch in enumerate(data_raw.split("\n\n"))
-        if compare(*map(eval, batch.splitlines())) == 1
+        if compare(*map(json.loads, batch.splitlines())) == 1
     )
 )
