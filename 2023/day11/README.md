@@ -7,8 +7,6 @@
 from itertools import combinations
 from pathlib import Path
 
-from rich import print
-
 data_raw = Path(__file__).with_name("input.txt").read_text().splitlines()
 
 expanded_rows = []
@@ -41,16 +39,21 @@ print(
 )
 
 ```
-Runtime: 0.076s, Size: 739, Output:
+Runtime: 0.038s, Size: 715, Output:
 ```
 9639160
 ```
 ## Part 2
+### Overview
+| Variant | Runtime | Size |
+| --- | --- | --- |
+|1|0.733s|752|
+|2|0.023s|565|
+
+### Variant 1
 ```python
 from itertools import combinations
 from pathlib import Path
-
-from rich import print
 
 data_raw = Path(__file__).with_name("input.txt").read_text().splitlines()
 
@@ -78,7 +81,37 @@ for a, b in combinations(galaxies, 2):
 print(path_sum)
 
 ```
-Runtime: 0.769s, Size: 776, Output:
+Runtime: 0.733s, Size: 752, Output:
+```
+752936133304
+```
+### Variant 2
+```python
+from itertools import pairwise
+from pathlib import Path
+
+data_raw = Path(__file__).with_name("input.txt").read_text().splitlines()
+
+galaxies = [
+    (row, col)
+    for row, row_data in enumerate(data_raw)
+    for col, cell in enumerate(row_data)
+    if cell == "#"
+]
+N = len(galaxies)
+
+spacing = 1000000
+result = 0
+for dimension in map(sorted, zip(*galaxies)):
+    for i, (g1, g2) in enumerate(pairwise(dimension), 1):
+        distance = 0 if g1 == g2 else (g2 - g1 - 1) * spacing + 1
+        factor = i * (N - i)
+        result += distance * factor
+
+print(result)
+
+```
+Runtime: 0.023s, Size: 565, Output:
 ```
 752936133304
 ```
